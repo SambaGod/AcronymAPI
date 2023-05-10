@@ -17,6 +17,7 @@ AppDataSource.initialize().then(() => {
   const port = 8000;
 
   app.use('/acronym', Routes.AcronymAPI);
+  app.use('/random', Routes.RandomAPI);
 
   try {
     app.listen(port, () =>
