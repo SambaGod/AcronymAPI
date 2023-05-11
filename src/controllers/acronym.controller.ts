@@ -108,10 +108,18 @@ export async function putAcronymController(
   try {
     const acronym: string = request.params.acronym;
     const params: any = request.body;
-    await putAcronymService(params, acronym);
-    response.status(200).send({
-      message: 'Acronym Successfully Updated',
-    });
+
+    if (request.headers.authorization) {
+      await putAcronymService(params, acronym);
+      response.status(200).send({
+        message: 'Acronym Successfully Updated',
+      });
+    } else {
+      response.status(401).send({
+        message:
+          'Unauthorized request. Please make sure authorization header is enabled',
+      });
+    }
   } catch (error) {
     response.status(500).send({
       message:
@@ -127,10 +135,18 @@ export async function deleteAcronymController(
 ) {
   try {
     const acronym: string = request.params.acronym;
-    await deleteAcronymService(acronym);
-    response.status(200).send({
-      message: 'Acronym Successfully Delete',
-    });
+
+    if (request.headers.authorization) {
+      await deleteAcronymService(acronym);
+      response.status(200).send({
+        message: 'Acronym Successfully Delete',
+      });
+    } else {
+      response.status(401).send({
+        message:
+          'Unauthorized request. Please make sure authorization header is enabled',
+      });
+    }
   } catch (error) {
     response.status(500).send({
       message:
